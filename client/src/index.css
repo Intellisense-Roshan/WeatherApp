@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen;
+  }
+}
+
+@layer components {
+  .weather-card {
+    @apply bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-white/20;
+  }
+  
+  .weather-icon {
+    @apply w-16 h-16 text-yellow-500;
+  }
+  
+  .forecast-card {
+    @apply bg-white/60 backdrop-blur-sm rounded-lg shadow-md border border-white/20 hover:bg-white/80 transition-all duration-300;
+  }
+}
+
+
