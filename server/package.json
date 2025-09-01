@@ -1,7 +1,7 @@
 {
   "name": "weather-app-server",
   "version": "1.0.0",
-  "description": "Backend server for Weather App",
+  "description": "Backend server for Meteora weather application",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

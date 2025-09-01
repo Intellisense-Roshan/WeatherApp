@@ -62,7 +62,7 @@ function App() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold text-weather-dark mb-2">
-            Weather App
+            Meteora
           </h1>
           <p className="text-lg text-gray-600">
             Get real-time weather data for any city in the world
@@ -114,7 +114,7 @@ function App() {
           <div className="text-center py-16">
             <Sun className="w-24 h-24 text-yellow-500 mx-auto mb-6" />
             <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-              Welcome to Weather App
+              Welcome to Meteora
             </h2>
             <p className="text-gray-600 max-w-md mx-auto">
               Enter a city name above to get current weather conditions and a 5-day forecast.

@@ -1,7 +1,7 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "description": "A full-stack Weather App with real-time weather data",
+  "description": "Meteora - A full-stack weather application with real-time weather data",
   "main": "server/index.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
