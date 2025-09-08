@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://weatherapp-yfhq.onrender.com',
+        target: 'https://weather-app-w4kg.vercel.app/',
         changeOrigin: true,
       },
     },
