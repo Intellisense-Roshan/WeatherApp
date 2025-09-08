@@ -9,22 +9,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// API Routes
+// Root route
+app.get('/', (req, res) => {
+  res.send("🌤️ Weather API is running! Try /api/weather?city=London or /api/forecast?city=Paris");
+});
+
+// Weather endpoint
 app.get('/api/weather', async (req, res) => {
   try {
     const { city } = req.query;
-    
+
     if (!city) {
-      return res.status(400).json({ 
-        message: 'City parameter is required' 
-      });
+      return res.status(400).json({ message: 'City parameter is required' });
     }
 
     const apiKey = process.env.WEATHER_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ 
-        message: 'Weather API key not configured' 
-      });
+      return res.status(500).json({ message: 'Weather API key not configured' });
     }
 
     const response = await axios.get(
@@ -34,40 +35,31 @@ app.get('/api/weather', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Weather API Error:', error.response?.data || error.message);
-    
+
     if (error.response?.status === 404) {
-      return res.status(404).json({ 
-        message: 'City not found. Please check the spelling and try again.' 
-      });
+      return res.status(404).json({ message: 'City not found. Please check the spelling and try again.' });
     }
-    
+
     if (error.response?.status === 401) {
-      return res.status(500).json({ 
-        message: 'Invalid API key. Please check your configuration.' 
-      });
+      return res.status(500).json({ message: 'Invalid API key. Please check your configuration.' });
     }
-    
-    res.status(500).json({ 
-      message: 'Failed to fetch weather data. Please try again later.' 
-    });
+
+    res.status(500).json({ message: 'Failed to fetch weather data. Please try again later.' });
   }
 });
 
+// Forecast endpoint
 app.get('/api/forecast', async (req, res) => {
   try {
     const { city } = req.query;
-    
+
     if (!city) {
-      return res.status(400).json({ 
-        message: 'City parameter is required' 
-      });
+      return res.status(400).json({ message: 'City parameter is required' });
     }
 
     const apiKey = process.env.WEATHER_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ 
-        message: 'Weather API key not configured' 
-      });
+      return res.status(500).json({ message: 'Weather API key not configured' });
     }
 
     const response = await axios.get(
@@ -77,29 +69,23 @@ app.get('/api/forecast', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Forecast API Error:', error.response?.data || error.message);
-    
+
     if (error.response?.status === 404) {
-      return res.status(404).json({ 
-        message: 'City not found. Please check the spelling and try again.' 
-      });
+      return res.status(404).json({ message: 'City not found. Please check the spelling and try again.' });
     }
-    
+
     if (error.response?.status === 401) {
-      return res.status(500).json({ 
-        message: 'Invalid API key. Please check your configuration.' 
-      });
+      return res.status(500).json({ message: 'Invalid API key. Please check your configuration.' });
     }
-    
-    res.status(500).json({ 
-      message: 'Failed to fetch forecast data. Please try again later.' 
-    });
+
+    res.status(500).json({ message: 'Failed to fetch forecast data. Please try again later.' });
   }
 });
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     message: 'Weather API server is running',
     timestamp: new Date().toISOString()
   });
@@ -108,16 +94,12 @@ app.get('/api/health', (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Server Error:', err);
-  res.status(500).json({ 
-    message: 'Internal server error' 
-  });
+  res.status(500).json({ message: 'Internal server error' });
 });
 
 // 404 handler
 app.use('*', (req, res) => {
-  res.status(404).json({ 
-    message: 'Endpoint not found' 
-  });
+  res.status(404).json({ message: 'Endpoint not found' });
 });
 
 // ✅ Start server locally if not running in Vercel
@@ -128,5 +110,5 @@ if (require.main === module) {
   });
 }
 
-// ✅ Still export app (so Vercel can use it)
+// ✅ Export app for Vercel
 module.exports = app;
